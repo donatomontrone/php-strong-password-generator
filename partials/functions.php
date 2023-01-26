@@ -24,14 +24,41 @@ if (isset($_GET['passwordLength'])) {
 
 //Creo una funzione che faccia il tutto
 
-function passwordGenerator($passLength)
+function passwordGenerator($passLength, $useAlphabet, $useNumbers, $useSymbols)
 {
+
     $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHILJKMNOPQRSTUVWXYZ';
     $numbers = '0123456789';
     $symbols = '!|\$%&/()=@#.,-*';
-    $allCharacters = $alphabet . $numbers . $symbols;
-    $password = substr(str_shuffle($allCharacters), 0, $passLength);
-    return $password;
+    $allCharacters = "";
+    if ($useAlphabet) {
+        $allCharacters .= $alphabet;
+    }
+    if ($useNumbers) {
+        $allCharacters .= $numbers;
+    }
+    if ($useSymbols) {
+        $allCharacters .= $symbols;
+    }
+
+    if ($allCharacters == "") {
+        return 'Per favore seleziona almeno un tipo di carattere per la password.';
+    }
+
+    $allCharactersLength = strlen($allCharacters) - 1;
+    $password = [];
+
+    if ($passLength > 10) {
+        return 'La password non può essere generata, troppo lunga, riprova.';
+    } else {
+        while ((count($password)) < $passLength) {
+            $randomIndex = rand(0, $allCharactersLength);
+            if (!in_array($allCharacters[$randomIndex], $password)) {
+                $password[] = $allCharacters[$randomIndex];
+            }
+        }
+        return 'La tua password è: ' . implode($password);
+    }
 }
 
 

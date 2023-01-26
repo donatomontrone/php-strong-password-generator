@@ -16,7 +16,7 @@ Dare all’utente anche la possibilità di permettere o meno la ripetizione di c
     session_start();
     include_once __DIR__ . '/partials/functions.php';
     if (isset($_GET['passwordLength']) && $_GET['passwordLength']) {
-        $password =  passwordGenerator($_GET['passwordLength']);
+        $password =  passwordGenerator($_GET['passwordLength'], $_GET['letters'],  $_GET['numbers'],  $_GET['symbols']);
         $_SESSION['password'] = $password;
         header('Location: ./result.php');
     }
@@ -56,12 +56,12 @@ Dare all’utente anche la possibilità di permettere o meno la ripetizione di c
                             <input type="number" class="form-control mb-3" name="passwordLength" id="password">
                         </div>
                         <div class="mb-3">
-                            <input type="checkbox" name="numbers" id="numbers" value="1">
-                            <label for="numbers" class="form-label">Numeri</label>
-                        </div>
-                        <div class="mb-3">
                             <input type="checkbox" name="letters" id="letters" value="1">
                             <label for="letters" class="form-label">Lettere</label>
+                        </div>
+                        <div class="mb-3">
+                            <input type="checkbox" name="numbers" id="numbers" value="1">
+                            <label for="numbers" class="form-label">Numeri</label>
                         </div>
                         <div class="mb-3">
                             <input type="checkbox" name="symbols" id="symbols" value="1">

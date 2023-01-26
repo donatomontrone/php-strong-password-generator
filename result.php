@@ -32,9 +32,8 @@ session_start()
                 <div class="row">
                     <div class="col-12">
                         <div class="result">
-                            <p class="fw-bold"> <span class="text-primary fw-normal">La tua password è: </span><?php
-                                                                                                                echo  $_SESSION['password'];
-                                                                                                                ?> </p>
+                            <p class="fw-bold"> <?php echo  $_SESSION['password'];
+                                                ?> </p>
                         </div>
                         <form action="./index.php">
                             <label class="form-label">Torna alla pagina principale per creare una generare
