@@ -13,8 +13,12 @@ Gestire ulteriori parametri per la password: quali caratteri usare fra numeri, l
 Possono essere scelti singolarmente (es. solo numeri) oppure possono essere combinati fra loro (es. numeri e simboli, oppure tutti e tre insieme).
 Dare all’utente anche la possibilità di permettere o meno la ripetizione di caratteri uguali.
 --> <?php
+    session_start();
     include_once __DIR__ . '/partials/functions.php';
-
+    if (isset($_GET['passwordLength'])) {
+        $password =  passwordGenerator($_GET['passwordLength']);
+        $_SESSION['password'] = $password;
+    }
     ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,18 +32,8 @@ Dare all’utente anche la possibilità di permettere o meno la ripetizione di c
 
 <body>
     <main>
-        <div class="result">
-            <p> <?php
-
-                if (isset($_GET['passwordLength'])) {
-                    echo passwordGenerator($_GET['passwordLength']);
-                } else {
-                    echo 'Inserisci il numero dei caratteri per generare la password';
-                }
-                ?> </p>
-        </div>
         <!-- Creo un form per effettuare la get sulla lugnhezza della password -->
-        <form method="GET" action="./index.php">
+        <form method="GET" action="./result.php">
             <label for="password">Inserisci la lunghezza della password</label>
             <input type="number" name="passwordLength" id="password">
             <button type="submit">Genera</button>
