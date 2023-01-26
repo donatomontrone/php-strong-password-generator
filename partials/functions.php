@@ -24,7 +24,7 @@ if (isset($_GET['passwordLength'])) {
 
 //Creo una funzione che faccia il tutto
 
-function passwordGenerator($passLength, $useAlphabet, $useNumbers, $useSymbols)
+function passwordGenerator($passLength, $useAlphabet, $useNumbers, $useSymbols, $duplicate)
 {
     // Dichiaro la variabile vuota dove inserirò parzialmente o totalemtne i caratteri.
     $allCharacters = "";
@@ -54,14 +54,13 @@ function passwordGenerator($passLength, $useAlphabet, $useNumbers, $useSymbols)
     } else {
 
         //Se la password p inferiore a 10 allore faccio un ciclio while
-        // Finchè la lunchezza di password è minore della lunghezza definita dall'utente
+        // Finchè la lunghezza di password è minore della lunghezza definita dall'utente
         //  todo condizione per i dublicati
         // scelgo randomicamente tramite rand un indice della stringa di tutti i caratteri
         // Se l'array password non contiene il carattere all'indice che gli ho indicato prima allora inserisci il carattere nell'array password.
-
         while ((count($password)) < $passLength) {
             $randomIndex = rand(0, $allCharactersLength);
-            if (!in_array($allCharacters[$randomIndex], $password)) {
+            if (!in_array($allCharacters[$randomIndex], $password) || $duplicate) {
                 $password[] = $allCharacters[$randomIndex];
             }
         }
