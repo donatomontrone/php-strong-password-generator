@@ -29,14 +29,7 @@ function passwordGenerator($passLength)
     $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHILJKMNOPQRSTUVWXYZ';
     $numbers = '0123456789';
     $symbols = '!<|\>$%&/()=&@#.,-';
-    $password = '';
-
-    if (isset($passLength)) {
-        $allCharacters = $alphabet . $numbers . $symbols;
-        $password = substr(str_shuffle($allCharacters), 0, $passLength);
-    } else {
-        $password = 'Inserisci la lughezza della tua password per generare la password';
-    }
-
+    $allCharacters = $alphabet . $numbers . $symbols;
+    $password = substr(str_shuffle($allCharacters), 0, $passLength);
     return $password;
 }

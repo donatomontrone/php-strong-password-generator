@@ -30,7 +30,12 @@ Dare all’utente anche la possibilità di permettere o meno la ripetizione di c
     <main>
         <div class="result">
             <p> <?php
-                echo passwordGenerator($_GET['passwordLength']);
+
+                if (isset($_GET['passwordLength'])) {
+                    echo passwordGenerator($_GET['passwordLength']);
+                } else {
+                    echo 'Inserisci il numero dei caratteri per generare la password';
+                }
                 ?> </p>
         </div>
         <!-- Creo un form per effettuare la get sulla lugnhezza della password -->
