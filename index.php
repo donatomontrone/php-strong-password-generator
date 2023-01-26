@@ -56,16 +56,23 @@ Dare all’utente anche la possibilità di permettere o meno la ripetizione di c
                             <input type="number" class="form-control mb-3" name="passwordLength" id="password">
                         </div>
                         <div class="mb-3">
-                            <input type="checkbox" name="letters" id="letters" value="1">
+                            <input type="checkbox" name="letters" id="letters" checked>
                             <label for="letters" class="form-label">Lettere</label>
                         </div>
                         <div class="mb-3">
-                            <input type="checkbox" name="numbers" id="numbers" value="1">
+                            <input type="checkbox" name="numbers" id="numbers" checked>
                             <label for="numbers" class="form-label">Numeri</label>
                         </div>
                         <div class="mb-3">
-                            <input type="checkbox" name="symbols" id="symbols" value="1">
+                            <input type="checkbox" name="symbols" id="symbols" checked>
                             <label for="symbols" class="form-label">Simboli</label>
+                        </div>
+                        <div class="mb-3">
+                            <p>Consenti la ripetizione dei caratteri?</p>
+                            <label for="duplicateY">Sì </label>
+                            <input type="radio" name="duplicate" id="duplicateY" value="true">
+                            <label for="duplicateN">No </label>
+                            <input type="radio" name="duplicate" id="duplicateN" value="false" checked>
                         </div>
                         <button type="submit" class="btn btn-primary">Genera</button>
                     </form>

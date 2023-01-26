@@ -26,37 +26,46 @@ if (isset($_GET['passwordLength'])) {
 
 function passwordGenerator($passLength, $useAlphabet, $useNumbers, $useSymbols)
 {
-
-    $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHILJKMNOPQRSTUVWXYZ';
-    $numbers = '0123456789';
-    $symbols = '!|\$%&/()=@#.,-*';
+    // Dichiaro la variabile vuota dove inserirò parzialmente o totalemtne i caratteri.
     $allCharacters = "";
+
+    // Faccio 3 if per vedere se l'utente ha selezionato o no i checkbox e aggiungo alla variabile allcharacter i caratteri selezionati dall'utente.
     if ($useAlphabet) {
-        $allCharacters .= $alphabet;
+        $allCharacters .= 'abcdefghijklmnopqrstuvwxyzABCDEFGHILJKMNOPQRSTUVWXYZ';
     }
     if ($useNumbers) {
-        $allCharacters .= $numbers;
+        $allCharacters .= '0123456789';
     }
     if ($useSymbols) {
-        $allCharacters .= $symbols;
+        $allCharacters .= '!|\$%&/()=@#.,-*';
     }
 
+    //Prevedo che l'utente possa non cliccare su nessun checkbox e li metto una condizione per stampare un messaggio qual'ora questo avvenga
     if ($allCharacters == "") {
         return 'Per favore seleziona almeno un tipo di carattere per la password.';
     }
-
+    // Nelc aso in cui ciò non avviene: pirma di tutto vedo quanto è lunga la stringa di tutti i caratteri che ho creato e dichiaro una variabile password come un array 
     $allCharactersLength = strlen($allCharacters) - 1;
     $password = [];
 
+    //Prevedo una condizione per cui l'utente se vuole una password deve inserire una password inferiore o uguale a 10 altrimenti gli torno un messaggio
     if ($passLength > 10) {
         return 'La password non può essere generata, troppo lunga, riprova.';
     } else {
+
+        //Se la password p inferiore a 10 allore faccio un ciclio while
+        // Finchè la lunchezza di password è minore della lunghezza definita dall'utente
+        //  todo condizione per i dublicati
+        // scelgo randomicamente tramite rand un indice della stringa di tutti i caratteri
+        // Se l'array password non contiene il carattere all'indice che gli ho indicato prima allora inserisci il carattere nell'array password.
+
         while ((count($password)) < $passLength) {
             $randomIndex = rand(0, $allCharactersLength);
             if (!in_array($allCharacters[$randomIndex], $password)) {
                 $password[] = $allCharacters[$randomIndex];
             }
         }
+        // Ritorno l'array password trasfomato in stringa.
         return 'La tua password è: ' . implode($password);
     }
 }
