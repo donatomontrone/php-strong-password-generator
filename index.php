@@ -18,6 +18,7 @@ Dare all’utente anche la possibilità di permettere o meno la ripetizione di c
     if (isset($_GET['passwordLength'])) {
         $password =  passwordGenerator($_GET['passwordLength']);
         $_SESSION['password'] = $password;
+        header('Location: result.php');
     }
     ?>
 <!DOCTYPE html>
@@ -33,7 +34,7 @@ Dare all’utente anche la possibilità di permettere o meno la ripetizione di c
 <body>
     <main>
         <!-- Creo un form per effettuare la get sulla lugnhezza della password -->
-        <form method="GET" action="./result.php">
+        <form method="GET" action="./index.php">
             <label for="password">Inserisci la lunghezza della password</label>
             <input type="number" name="passwordLength" id="password">
             <button type="submit">Genera</button>

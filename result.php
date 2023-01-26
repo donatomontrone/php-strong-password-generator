@@ -14,7 +14,7 @@ session_start()
 <body>
     <div class="result">
         <p> <?php
-            echo $_SESSION['password'];
+            echo 'La tua password è: ' . $_SESSION['password'];
             ?> </p>
     </div>
 </body>
