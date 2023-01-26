@@ -28,8 +28,14 @@ function passwordGenerator($passLength)
 {
     $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHILJKMNOPQRSTUVWXYZ';
     $numbers = '0123456789';
-    $symbols = '!<|\>$%&/()=&@#.,-';
+    $symbols = '!|\$%&/()=@#.,-*';
     $allCharacters = $alphabet . $numbers . $symbols;
     $password = substr(str_shuffle($allCharacters), 0, $passLength);
     return $password;
 }
+
+
+//Finche i caratteri sono meno della lunghezza della password 
+//Aggiungi un carattere casuale
+// Se l'array dei caratteri non include il carattere appena aggiunto
+//aggiungi un nuovo carattere

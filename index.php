@@ -15,10 +15,10 @@ Dare all’utente anche la possibilità di permettere o meno la ripetizione di c
 --> <?php
     session_start();
     include_once __DIR__ . '/partials/functions.php';
-    if (isset($_GET['passwordLength'])) {
+    if (isset($_GET['passwordLength']) && $_GET['passwordLength']) {
         $password =  passwordGenerator($_GET['passwordLength']);
         $_SESSION['password'] = $password;
-        header('Location: result.php');
+        header('Location: ./result.php');
     }
     ?>
 <!DOCTYPE html>
@@ -29,16 +29,50 @@ Dare all’utente anche la possibilità di permettere o meno la ripetizione di c
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Password Generator</title>
+    <!-- Bootstrap v5.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
 
 <body>
+    <header class="mb-4">
+        <nav class="navbar bg-primary-subtle">
+            <div class="container-fluid">
+                <a class="navbar-brand d-flex align-items-center" href="#">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1000/1000915.png" alt="Logo" width="60"
+                        height="60">
+                    <h1 class="ps-2 mt-3 text-primary">Password Generator</h1>
+                </a>
+            </div>
+        </nav>
+    </header>
     <main>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-11">
+                    <form method="GET" action="./index.php">
+                        <div class=" mb-3">
+                            <label for="password" class="form-label">Inserisci la lunghezza della password</label>
+                            <input type="number" class="form-control mb-3" name="passwordLength" id="password">
+                        </div>
+                        <div class="mb-3">
+                            <input type="checkbox" name="numbers" id="numbers" value="1">
+                            <label for="numbers" class="form-label">Numeri</label>
+                        </div>
+                        <div class="mb-3">
+                            <input type="checkbox" name="letters" id="letters" value="1">
+                            <label for="letters" class="form-label">Lettere</label>
+                        </div>
+                        <div class="mb-3">
+                            <input type="checkbox" name="symbols" id="symbols" value="1">
+                            <label for="symbols" class="form-label">Simboli</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Genera</button>
+                    </form>
+                </div>
+            </div>
+        </div>
         <!-- Creo un form per effettuare la get sulla lugnhezza della password -->
-        <form method="GET" action="./index.php">
-            <label for="password">Inserisci la lunghezza della password</label>
-            <input type="number" name="passwordLength" id="password">
-            <button type="submit">Genera</button>
-        </form>
     </main>
 </body>
 
