@@ -68,11 +68,8 @@ Dare all’utente anche la possibilità di permettere o meno la ripetizione di c
                             <label for="symbols" class="form-label">Simboli</label>
                         </div>
                         <div class="mb-3">
-                            <p>Consenti la ripetizione dei caratteri?</p>
-                            <label for="duplicateY">Sì </label>
-                            <input type="radio" name="duplicate" id="duplicateY" value="true">
-                            <label for="duplicateN">No </label>
-                            <input type="radio" name="duplicate" id="duplicateN" value="false" checked>
+                            <label for="duplicate">Consenti duplicazione dei caratteri? </label>
+                            <input type="checkbox" name="duplicate" id="duplicate">
                         </div>
                         <button type="submit" class="btn btn-primary">Genera</button>
                     </form>

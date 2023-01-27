@@ -26,6 +26,13 @@ if (isset($_GET['passwordLength'])) {
 
 function passwordGenerator($passLength, $useAlphabet, $useNumbers, $useSymbols, $duplicate)
 {
+
+    //Se l'utente inserisci più di x caratteri ne ritorno un massimo di 12.
+    $passLength = ($passLength > 25) ? 25 : $passLength;
+
+    //dichiaro la varibiabile password.
+    $password = '';
+
     // Dichiaro la variabile vuota dove inserirò parzialmente o totalemtne i caratteri.
     $allCharacters = "";
 
@@ -40,33 +47,29 @@ function passwordGenerator($passLength, $useAlphabet, $useNumbers, $useSymbols, 
         $allCharacters .= '!|\$%&/()=@#.,-*';
     }
 
-    //Prevedo che l'utente possa non cliccare su nessun checkbox e li metto una condizione per stampare un messaggio qual'ora questo avvenga
-    if ($allCharacters == "") {
-        return 'Per favore seleziona almeno un tipo di carattere per la password.';
-    }
-    // Nelc aso in cui ciò non avviene: pirma di tutto vedo quanto è lunga la stringa di tutti i caratteri che ho creato e dichiaro una variabile password come un array 
-    $allCharactersLength = strlen($allCharacters) - 1;
-    $password = [];
+    // Nel caso in cui ciò non avviene: pirma di tutto vedo quanto è lunga la stringa di tutti i caratteri che ho creato e dichiaro una variabile password come un array 
+    $allCharactersLength = strlen($allCharacters);
 
-    //Prevedo una condizione per cui l'utente se vuole una password deve inserire una password inferiore o uguale a 10 altrimenti gli torno un messaggio
-    if ($passLength > 10) {
-        return 'La password non può essere generata, troppo lunga, riprova.';
-    } else {
 
-        //Se la password p inferiore a 10 allore faccio un ciclio while
-        // Finchè la lunghezza di password è minore della lunghezza definita dall'utente
-        //  todo condizione per i dublicati
-        // scelgo randomicamente tramite rand un indice della stringa di tutti i caratteri
-        // Se l'array password non contiene il carattere all'indice che gli ho indicato prima allora inserisci il carattere nell'array password.
-        while ((count($password)) < $passLength) {
-            $randomIndex = rand(0, $allCharactersLength);
-            if (!in_array($allCharacters[$randomIndex], $password) || $duplicate) {
-                $password[] = $allCharacters[$randomIndex];
+    //Considero e dichiaro la lunghezza massima che potrà avere la password sulla base dei caratteri.
+    $maxLength = ($allCharactersLength > $passLength) ? $passLength : $allCharactersLength;
+
+    //Finchè la lunghezza della mia password sarà inferiore alla lunghezza massima raggiungibile allora:
+    // prendo 1 solo carattere randomico da tutti i caratteri disponibili partendo da 0 fino alla all'ultimo carattere (lunghezza -1) 
+    //se sono consentiti i duplicati allora inserisci un carattere randomico alla volta nella password altrimenti controlla che la passwrod contenga già il carattere randomico se non lo contiene inseriscilo.
+    while (strlen($password) < $maxLength) {
+        $randomCharacter = substr($allCharacters, random_int(0, $allCharactersLength - 1), 1);
+
+        if ($duplicate) {
+            $password .= $randomCharacter;
+        } else {
+            if (!str_contains($password, $randomCharacter)) {
+                $password .= $randomCharacter;
             }
         }
-        // Ritorno l'array password trasfomato in stringa.
-        return 'La tua password è: ' . implode($password);
     }
+
+    return 'La tua password è: ' . $password;
 }
 
 
@@ -74,3 +77,55 @@ function passwordGenerator($passLength, $useAlphabet, $useNumbers, $useSymbols, 
 //Aggiungi un carattere casuale
 // Se l'array dei caratteri non include il carattere appena aggiunto
 //aggiungi un nuovo carattere
+
+
+
+//=============================================================//
+/* 
+*                         Correzione                             
+*/
+/* 
+
+function generatePassword($charsNumber)
+{
+
+    $charsNumber = ($charsNumber >= 20) ? 20 : $charsNumber;
+    $generateString = '';
+    $alphaChars = 'asdfghjklopiuytrewazxcvbnm1234567890)(/&%$£"';
+
+    while (strlen($generateString) < $charsNumber)
+        $generateString .= substr($alphaChars, random_int(0, strlen($alphaChars) - 1), 1);
+    return $generateString;
+}
+
+
+function generateUniquePassword($charsNumber, $hasAlphabet, $hasNumbers, $hasSymbols)
+{
+    $charsNumber = ($charsNumber >= 20) ? 20 : $charsNumber;
+    $generateString = '';
+
+    $alphaChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHILJKMNOPQRSTUVWXYZ';
+    $numbers = '0123456789';
+    $symbols = '!<|\>$%&/()=&@#.,-';
+
+    $genericString = '';
+
+    if ($hasAlphabet) {
+        $genericString .= $alphaChars;
+    }
+    if ($hasNumbers) {
+        $genericString .= $numbers;
+    }
+    if ($hasSymbols) {
+        $genericString .= $symbols;
+    }
+
+    $maximumLength = (strlen($generateString) > $charsNumber) ? $charsNumber : strlen($generateString);
+    while (strlen($generateString) < $maximumLength) {
+        $randomEl = substr($alphaChars, random_int(0, strlen($alphaChars) - 1), 1);
+        if (!str_contains($generateString, $randomEl)) {
+            $generateString .= $randomEl;
+        }
+    }
+    return $generateString;
+} */
